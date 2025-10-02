@@ -31,14 +31,11 @@ class ChatWebService {
         if (data['data'] is List) {
           for (var item in data['data']) {
             if (item is Map && item.containsKey('content') && item['content'] != null) {
-              // The AnswerSection expects a map like {'data': '...content...'}.
-              // We create that map here before sending it to the stream.
               _contentController.add({'data': item['content']});
             }
           }
         }
       } else if (data['type'] == 'answer_chunk') {
-        // This is kept in case the backend also sends this type.
         _contentController.add(data);
       } else {
         print("Received unknown message type: ${data['type']}");
