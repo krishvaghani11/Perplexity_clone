@@ -15,8 +15,6 @@ class AnswerSection extends StatefulWidget {
 
 class _AnswerSectionState extends State<AnswerSection> {
   bool isLoading = true;
-  // 1. Initialize fullResponse with an empty string.
-  // The old hardcoded text has been removed.
   String fullResponse = '';
 
   @override
