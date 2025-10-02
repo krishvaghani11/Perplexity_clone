@@ -1,4 +1,4 @@
-// In lib/services/chat_web_service.dart
+
 
 import 'dart:async';
 import 'dart:convert';
@@ -11,8 +11,8 @@ class ChatWebService {
   factory ChatWebService() => _instance;
 
   ChatWebService._internal();
-  final _searchResultController = StreamController<Map<String, dynamic>>.broadcast(); // Use .broadcast() for multiple listeners
-  final _contentController = StreamController<Map<String, dynamic>>.broadcast(); // Use .broadcast() for multiple listeners
+  final _searchResultController = StreamController<Map<String, dynamic>>.broadcast();
+  final _contentController = StreamController<Map<String, dynamic>>.broadcast(); 
 
   Stream<Map<String, dynamic>> get searchResultStream =>
       _searchResultController.stream;
@@ -26,10 +26,8 @@ class ChatWebService {
       final data = json.decode(message);
 
       if (data['type'] == 'search_result') {
-        // 1. Send the original message to the SourcesSection as before.
         _searchResultController.add(data);
 
-        // 2. NEW: Extract the 'content' and send it to the AnswerSection.
         if (data['data'] is List) {
           for (var item in data['data']) {
             if (item is Map && item.containsKey('content') && item['content'] != null) {
@@ -56,7 +54,7 @@ class ChatWebService {
     }
   }
 
-  // It's good practice to have a dispose method to close controllers.
+
   void dispose() {
     _searchResultController.close();
     _contentController.close();
